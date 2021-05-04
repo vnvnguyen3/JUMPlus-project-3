@@ -13,9 +13,9 @@ public class AccountDAOClass implements AccountDAO{
 	
 	private static final Connection conn = ConnectionManager.getConnection();
 	
-	private static final String SELECT_ALL_ACCOUNTS = "SELECT * FROM account";
-	private static final String SELECT_ACCOUNT_BY_ID = "SELECT * FROM account WHERE id = ?";
-	private static final String ADD_ACCOUNT = "INSERT INTO account(first, last, email, id, passcode, amount) values (?, ?, ?, ?, ?, ?)";
+	private static final String SELECT_ALL_ACCOUNTS = "SELECT * FROM bankAccount";
+	private static final String SELECT_ACCOUNT_BY_ID = "SELECT * FROM bankAccount WHERE id = ?";
+	private static final String ADD_ACCOUNT = "INSERT INTO bankAccount(firstName, lastName, email, userId, passcode, amount) values (?, ?, ?, ?, ?, ?)";
 
 	@Override
 	public boolean addAccount(Account a) {
@@ -42,8 +42,8 @@ public class AccountDAOClass implements AccountDAO{
 				ResultSet rs = pstmt.executeQuery();) {
 			while(rs.next()) {
 				accounts.add(new Account(rs.getInt("id"), 
-						rs.getString("first"), 
-						rs.getString("last"), 
+						rs.getString("firstName"), 
+						rs.getString("lastName"), 
 						rs.getString("email"), 
 						rs.getString("userId"),
 						rs.getInt("passcode"),
@@ -63,8 +63,8 @@ public class AccountDAOClass implements AccountDAO{
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
 			account = new Account(rs.getInt("id"), 
-					rs.getString("first"), 
-					rs.getString("last"), 
+					rs.getString("firstName"), 
+					rs.getString("lastName"), 
 					rs.getString("email"), 
 					rs.getString("userId"),
 					rs.getInt("passcode"),

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import com.cognixia.jump.dao.AccountDAO;
 import com.cognixia.jump.dao.AccountDAOClass;
 import com.cognixia.jump.model.Account;
 
+@WebServlet("/AccountServlet")
 public class AccountServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private AccountDAO db;
@@ -28,7 +30,7 @@ public class AccountServlet extends HttpServlet{
 		this.db = new AccountDAOClass();
 		conn = ConnectionManager.getConnection();
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM account WHERE userId = ? AND passcode = ?");	
+			pstmt = conn.prepareStatement("SELECT * FROM bankAccount WHERE userId = ? AND passcode = ?");	
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -46,8 +48,8 @@ public class AccountServlet extends HttpServlet{
 			rs.next();
 			
 			Account account = new Account(rs.getInt("id"), 
-					rs.getString("first"), 
-					rs.getString("last"), 
+					rs.getString("firstName"), 
+					rs.getString("lastName"), 
 					rs.getString("email"), 
 					rs.getString("userId"),
 					rs.getInt("passcode"),
