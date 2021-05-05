@@ -8,11 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%Account account = (Account)request.getAttribute("account"); %>
+<%Account account;
+if((Account)request.getAttribute("account") == null){
+	account = (Account)session.getAttribute("account");
+}else{
+	account = (Account)request.getAttribute("account");
+}
+session.setAttribute("account", account);%>
 <h2>Welcome <%=account.getFirst()%> <%=account.getLast()%></h2>
 <a href= "./deposit.jsp"><button type="button">Deposit</button></a>
 <a href= "./withdraw.jsp"><button type="button">Withdraw</button></a>
-<a href= "./transfer.jsp"><button type="button">Transfer</button></a>
+<form method="post" action="UserServlet"><button type="submit">Transfer</button></form>
 <a href= "./transactions.jsp"><button type="button">Transactions</button></a>
 <a href= "./userInfo.jsp"><button type="button">View User Info</button></a>
 <a href= "./index.jsp"><button type="button">Sign Out</button></a>

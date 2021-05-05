@@ -16,7 +16,8 @@ public class AccountDAOClass implements AccountDAO{
 	private static final String SELECT_ALL_ACCOUNTS = "SELECT * FROM bankAccount";
 	private static final String SELECT_ACCOUNT_BY_ID = "SELECT * FROM bankAccount WHERE id = ?";
 	private static final String ADD_ACCOUNT = "INSERT INTO bankAccount(firstName, lastName, email, userId, passcode, amount) values (?, ?, ?, ?, ?, ?)";
-
+	private static final String UPDATE_ACCOUNT = "UPDATE bankAccount SET amount = ? where userID = ?";
+	
 	@Override
 	public boolean addAccount(Account a) {
 		try (PreparedStatement pstmt = conn.prepareStatement(ADD_ACCOUNT);){
@@ -74,6 +75,20 @@ public class AccountDAOClass implements AccountDAO{
 		}
 				
 		return account;
+	}
+
+	@Override
+	public boolean updateAccount(Account a) {
+		try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_ACCOUNT);){
+			pstmt.setDouble(1, a.getAmount());
+			pstmt.setString(2, a.getUserId());
+			if(pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	

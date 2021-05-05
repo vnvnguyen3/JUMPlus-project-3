@@ -37,4 +37,5 @@
 		<button type="submit">Create Account</button>
 	</div>
 </form>
+<a href= "./index.jsp"><button type="button">Go Back</button></a>
 <%@ include file = "footer.jsp"%>
