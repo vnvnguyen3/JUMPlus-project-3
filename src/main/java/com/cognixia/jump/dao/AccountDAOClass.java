@@ -15,8 +15,8 @@ public class AccountDAOClass implements AccountDAO{
 	
 	private static final String SELECT_ALL_ACCOUNTS = "SELECT * FROM bankAccount";
 	private static final String SELECT_ACCOUNT_BY_ID = "SELECT * FROM bankAccount WHERE id = ?";
-	private static final String ADD_ACCOUNT = "INSERT INTO bankAccount(firstName, lastName, email, userId, passcode, amount) values (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_ACCOUNT = "UPDATE bankAccount SET amount = ? where userID = ?";
+	private static final String ADD_ACCOUNT = "INSERT INTO bankAccount(firstName, lastName, email, userId, passcode, amount, transactions) values (?, ?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE_ACCOUNT = "UPDATE bankAccount SET amount = ?, transactions = ? where userID = ?";
 	
 	@Override
 	public boolean addAccount(Account a) {
@@ -27,6 +27,7 @@ public class AccountDAOClass implements AccountDAO{
 			pstmt.setString(4, a.getUserId());
 			pstmt.setInt(5, a.getPasscode());
 			pstmt.setDouble(6, a.getAmount());
+			pstmt.setString(7, a.getTransactions());
 			if(pstmt.executeUpdate() > 0) {
 				return true;
 			}
@@ -48,7 +49,8 @@ public class AccountDAOClass implements AccountDAO{
 						rs.getString("email"), 
 						rs.getString("userId"),
 						rs.getInt("passcode"),
-						rs.getDouble("amount")));
+						rs.getDouble("amount"),
+						rs.getString("transactions")));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -69,7 +71,8 @@ public class AccountDAOClass implements AccountDAO{
 					rs.getString("email"), 
 					rs.getString("userId"),
 					rs.getInt("passcode"),
-					rs.getDouble("amount"));
+					rs.getDouble("amount"),
+					rs.getString("transactions"));
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,7 +84,8 @@ public class AccountDAOClass implements AccountDAO{
 	public boolean updateAccount(Account a) {
 		try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_ACCOUNT);){
 			pstmt.setDouble(1, a.getAmount());
-			pstmt.setString(2, a.getUserId());
+			pstmt.setString(2, a.getTransactions());
+			pstmt.setString(3, a.getUserId());
 			if(pstmt.executeUpdate() > 0) {
 				return true;
 			}

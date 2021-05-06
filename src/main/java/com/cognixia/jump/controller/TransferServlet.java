@@ -48,7 +48,8 @@ public class TransferServlet extends HttpServlet{
 					rs.getString("email"), 
 					rs.getString("userId"),
 					rs.getInt("passcode"),
-					rs.getDouble("amount"));
+					rs.getDouble("amount"),
+					rs.getString("transactions"));
 			
 			req.setAttribute("transferTo", transferAccount);
 			
@@ -63,6 +64,7 @@ public class TransferServlet extends HttpServlet{
 		double amount = Double.parseDouble(req.getParameter("amount"));
 		String userId = req.getParameter("userId");
 		String transferTo = req.getParameter("transferTo");
+		String transaction = "Transferred $"+amount+" to "+transferTo+"\n";
 		try {			
 			pstmt.setString(1, userId);
 			ResultSet rs = pstmt.executeQuery();
@@ -78,7 +80,8 @@ public class TransferServlet extends HttpServlet{
 						rs.getString("email"), 
 						rs.getString("userId"),
 						rs.getInt("passcode"),
-						remainder);
+						remainder,
+						rs.getString("transactions").concat(transaction));
 				pstmt.setString(1, transferTo);
 				rs = pstmt.executeQuery();
 				rs.next();
@@ -88,7 +91,8 @@ public class TransferServlet extends HttpServlet{
 						rs.getString("email"), 
 						rs.getString("userId"),
 						rs.getInt("passcode"),
-						rs.getDouble("amount") + amount);
+						rs.getDouble("amount") + amount,
+						rs.getString("transactions"));
 				
 				db.updateAccount(account);
 				db.updateAccount(transferAccount);

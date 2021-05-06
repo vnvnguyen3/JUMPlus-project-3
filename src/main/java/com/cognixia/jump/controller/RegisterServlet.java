@@ -30,7 +30,7 @@ public class RegisterServlet extends HttpServlet{
 		String userId = req.getParameter("userId");
 		int pass = Integer.parseInt(req.getParameter("passcode"));
 		double amount = Double.parseDouble(req.getParameter("amount"));
-		Account account = new Account(0, first_name, last_name, email, userId, pass, amount);
+		Account account = new Account(0, first_name, last_name, email, userId, pass, amount, "");
 		
 		db.addAccount(account);
 		

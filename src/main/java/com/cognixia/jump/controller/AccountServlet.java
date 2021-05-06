@@ -53,7 +53,8 @@ public class AccountServlet extends HttpServlet{
 					rs.getString("email"), 
 					rs.getString("userId"),
 					rs.getInt("passcode"),
-					rs.getDouble("amount"));
+					rs.getDouble("amount"),
+					rs.getString("transactions"));
 			
 			req.setAttribute("account", account);
 			

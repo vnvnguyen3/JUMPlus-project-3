@@ -38,6 +38,7 @@ public class WithdrawServlet extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		double amount = Double.parseDouble(req.getParameter("amount"));
+		String transaction = "Withdrew $"+amount+" from account\n";
 		String userId = req.getParameter("userId");
 		try {			
 			pstmt.setString(1, userId);
@@ -54,7 +55,8 @@ public class WithdrawServlet extends HttpServlet{
 						rs.getString("email"), 
 						rs.getString("userId"),
 						rs.getInt("passcode"),
-						remainder);
+						remainder,
+						rs.getString("transactions").concat(transaction));
 				db.updateAccount(account);
 				
 				req.setAttribute("account", account);

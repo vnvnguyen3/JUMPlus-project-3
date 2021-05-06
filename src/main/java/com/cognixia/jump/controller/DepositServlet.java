@@ -38,6 +38,7 @@ public class DepositServlet extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		double amount = Double.parseDouble(req.getParameter("amount"));
+		String transaction = "Deposited $"+amount+" into account\n";
 		String userId = req.getParameter("userId");
 		try {			
 			pstmt.setString(1, userId);
@@ -49,7 +50,8 @@ public class DepositServlet extends HttpServlet{
 					rs.getString("email"), 
 					rs.getString("userId"),
 					rs.getInt("passcode"),
-					rs.getDouble("amount") + amount);
+					rs.getDouble("amount") + amount,
+					rs.getString("transactions").concat(transaction));
 			db.updateAccount(account);
 			
 			req.setAttribute("account", account);

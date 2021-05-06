@@ -11,6 +11,7 @@
 <%Account account = (Account)session.getAttribute("account"); 
 session.setAttribute("account", account);%>
 <h2>List of transactions</h2>
-
+<%=account.getTransactions() %>
+<br>
 <a href= "./account.jsp"><button type="button">Go Back</button></a>
 <%@ include file = "footer.jsp"%>

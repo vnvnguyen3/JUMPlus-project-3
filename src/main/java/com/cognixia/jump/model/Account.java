@@ -11,9 +11,9 @@ public class Account {
 	private String userId;
 	private int passcode;
 	private double amount;
-	private ArrayList<String> transactions;
+	private String transactions;
 	
-	public Account(int id, String first, String last, String email, String userId, int passcode, double amount) {
+	public Account(int id, String first, String last, String email, String userId, int passcode, double amount, String transactions) {
 		super();
 		this.id = id;
 		this.first = first;
@@ -22,6 +22,7 @@ public class Account {
 		this.userId = userId;
 		this.passcode = passcode;
 		this.amount = amount;
+		this.transactions = transactions;
 	}
 	
 	public int getId() {
@@ -80,11 +81,11 @@ public class Account {
 		this.amount = amount;
 	}
 
-	public ArrayList<String> getTransactions() {
+	public String getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(ArrayList<String> transactions) {
+	public void setTransactions(String transactions) {
 		this.transactions = transactions;
 	}
 
